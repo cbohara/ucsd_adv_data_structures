@@ -58,6 +58,7 @@ public class GraphAdjList extends Graph {
 	 * @return List<Integer> a list of indices of vertices.  
 	 */	
 	public List<Integer> getNeighbors(int v) {
+		// return new list rather than original list to protect private data inside graph
 		return new ArrayList<Integer>(adjListsMap.get(v));
 	}
 
@@ -95,8 +96,12 @@ public class GraphAdjList extends Graph {
 	 * @return List<Integer> a list of indices of vertices.  
 	 */		
 	 public List<Integer> getDistance2(int v) {
-		 // XXX: Implement this method in week 2
-		 return null;
+		 List<Integer> twoHop = new ArrayList<Integer>();
+		 List<Integer> oneHop = adjListsMap.get(v);
+		 for (int oneHopVertex: oneHop) {
+			 twoHop.addAll(adjListsMap.get(oneHopVertex));
+		 }
+		 return twoHop;
 	}
 	
 	/**

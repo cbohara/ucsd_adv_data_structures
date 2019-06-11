@@ -67,8 +67,15 @@ public class GraphAdjMatrix extends Graph {
 	 */	
 	public List<Integer> getNeighbors(int v) {
 		List<Integer> neighbors = new ArrayList<Integer>();
+		/*
 		for (int i = 0; i < getNumVertices(); i ++) {
-			for (int j=0; j< adjMatrix[v][i]; j ++) {
+			for (int j = 0; j < adjMatrix[v][i]; j ++) {
+				neighbors.add(i);
+			}
+		}
+		*/
+		for (int i = 0; i < getNumVertices(); i++) {
+			if (adjMatrix[v][i] != 0) {
 				neighbors.add(i);
 			}
 		}

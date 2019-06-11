@@ -1,0 +1,39 @@
+data structures review
+set = unordered grouping of objects
+arrays + linked lists = sequential/linear relationship between objects
+trees = nodes are related to each other as parent/child
+
+graphs allow us to generalize the relationship between objects
+basic objects = vertex/node
+relationships between the vertices/nodes = edges/arcs/links
+
+undirected/symmetric graph
+ex: I am friends with you and you are friends with me
+no arrows between the two nodes
+
+directed graph
+ex: task dependencies - need to finish one task before another
+arrow points from one node to another
+
+one vertex is a neighbor of another if there is an edge between them
+
+path = hopping along the graph 
+
+adjacency matrix
+use a 2D array to rep the relationships between nodes
+need to account for both directions of the relationship
+0 = no directive relationship between node 1 and node 2
+1 = node 1 points to node 2
+if undirected graph than node 2 also points to node 1 = 1
+size of the 2D matrix is (number of nodes)^2
+
+due to how much space an adjacency matrix takes in memory, an alternative rep is
+adjacency list
+map associates node with a set of neighbors
+when adding a new node to associated with the vertex, just add to the list of neighbors
+easy to add vertices + easy to add/remove edges
+uses a lot less memory vs adjacency matrix
+
+in degree = # of incoming edges
+out degree = # of outgoing edges 
+
