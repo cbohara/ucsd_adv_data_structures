@@ -37,7 +37,9 @@ uses a lot less memory vs adjacency matrix
 in degree = # of incoming edges
 out degree = # of outgoing edges 
 
+##########################
 depth first search (DFS)
+##########################
 pursue one path as deep as possible
 
 how do we keep track of where to search next?
@@ -78,3 +80,28 @@ DFS(start_node, target_node, parents):
 		add n to visited set
 		add start_node as parent to n in parent hashmap
 		DFS(n, target_node, parents)
+
+##########################
+breadth first search (BFS)
+##########################
+only change from DFS algo is how we keep track of where to search for next
+
+how to keep track of where to search next?
+use queue - list where you add elements to one end and remove them from other
+enqueue = add an element
+dequeue = remove an element
+
+BFS algo
+BFS(start_node, target_node):
+	initialize queue (with all nodes), visited hashset (no nodes), and parent hashmap
+	push start_node onto the stack and add to visited hashset
+
+	while queue is not empty (as long we have somewhere else to go):
+		dequeue node from front of queue = current
+		if current == target_node:
+			return parent hashmap (path from start to goal)
+
+		for each current neighbors n that are not in visted set:
+			add n to visited set
+			add n to parent hashmap with current as the parent
+			enqueue n onto the end of the queue
