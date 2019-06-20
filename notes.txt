@@ -37,3 +37,44 @@ uses a lot less memory vs adjacency matrix
 in degree = # of incoming edges
 out degree = # of outgoing edges 
 
+depth first search (DFS)
+pursue one path as deep as possible
+
+how do we keep track of where to search next?
+use a stack data structure
+LIFO = last in first out
+list where you add and remove from one end only
+push > add an element
+pop > remove an element
+
+how do we keep track of what's been visited?
+hashset = add remove and find elements in contant time
+
+how do we keep track of the path from start to gold?
+use a hashmap 
+link each node to the node from which it was discovered
+
+DFS algo
+DFS(start_node, target_node):
+	initialize stack (with all nodes), visited hashset (no nodes), and parent hashmap
+	push start_node onto the stack and add to visited hashset
+
+	while stack is not empty (as long we have somewhere else to go):
+		pop top node off of the stack = current
+		if current == target_node:
+			return parent hashmap (path from start to goal)
+
+		for each current neighbors n that are not in visted set:
+			add n to visited set
+			add n to parent hashmap with current as the parent
+			push n onto the top of the stack (place to go explore)
+
+DFS recursion algo
+# doesn't include stack because it is implicitly leveraged
+DFS(start_node, target_node, parents):
+	if start_node == target_node:
+		return
+	for each of start_node neighbors n not in visited set:
+		add n to visited set
+		add start_node as parent to n in parent hashmap
+		DFS(n, target_node, parents)
