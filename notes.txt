@@ -94,7 +94,7 @@ dequeue = remove an element
 BFS algo
 BFS(start_node, target_node):
 	initialize queue (with all nodes), visited hashset (no nodes), and parent hashmap
-	push start_node onto the stack and add to visited hashset
+	push start_node onto the queue and add to visited hashset
 
 	while queue is not empty (as long we have somewhere else to go):
 		dequeue node from front of queue = current
