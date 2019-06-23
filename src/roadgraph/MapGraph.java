@@ -7,6 +7,9 @@
  */
 package roadgraph;
 
+import roadgraph.Intersection;
+import roadgraph.Road;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -23,14 +26,18 @@ import util.GraphLoader;
  *
  */
 public class MapGraph {
-	
+	private HashMap<GeographicPoint, Intersection> locationToIntersection;
+	private int numIntersections;
+	private int numRoads;
 	/** 
 	 * Create a new empty MapGraph 
 	 */
 	public MapGraph()
 	{
-
-		// TODO: Implement in this constructor in WEEK 3
+		//TODO: Implement this method in WEEK 3
+		this.locationToIntersection = new HashMap<GeographicPoint, Intersection>();
+		this.numIntersections = 0;
+		this.numRoads = 0;
 	}
 	
 	/**
@@ -40,17 +47,17 @@ public class MapGraph {
 	public int getNumVertices()
 	{
 		//TODO: Implement this method in WEEK 3
-		return 0;
+		return this.numIntersections;
 	}
 	
 	/**
 	 * Return the intersections, which are the vertices in this graph.
-	 * @return The vertices in this graph as GeographicPoints
+	 * @return The intersections in this graph as GeographicPoints
 	 */
 	public Set<GeographicPoint> getVertices()
 	{
 		//TODO: Implement this method in WEEK 3
-		return null;
+		return locationToIntersection.keySet();
 	}
 	
 	/**
@@ -60,12 +67,12 @@ public class MapGraph {
 	public int getNumEdges()
 	{
 		//TODO: Implement this method in WEEK 3
-		return 0;
+		return this.numRoads;
 	}
 
 	
 	
-	/** Add a node corresponding to an intersection at a Geographic Point
+	/** Add Intersection node corresponding to an intersection at a Geographic Point
 	 * If the location is already in the graph or null, this method does 
 	 * not change the graph.
 	 * @param location  The location of the intersection
@@ -75,12 +82,20 @@ public class MapGraph {
 	public boolean addVertex(GeographicPoint location)
 	{
 		// TODO: Implement this method in WEEK 3
-		return false;
+		if (location == null || locationToIntersection.containsKey(location)) {
+			return false;
+		} else {
+			locationToIntersection.put(location, new Intersection(location));
+			numIntersections++;
+			return true;
+		}
 	}
 	
 	/**
 	 * Adds a directed edge to the graph from pt1 to pt2.  
+	 * Adds Road to the graph from Intersection1 to Intersection2
 	 * Precondition: Both GeographicPoints have already been added to the graph
+	 * aka both intersections are already in locationToIntersection hashmap
 	 * @param from The starting point of the edge
 	 * @param to The ending point of the edge
 	 * @param roadName The name of the road
@@ -92,9 +107,17 @@ public class MapGraph {
 	 */
 	public void addEdge(GeographicPoint from, GeographicPoint to, String roadName,
 			String roadType, double length) throws IllegalArgumentException {
-
 		//TODO: Implement this method in WEEK 3
-		
+		if (locationToIntersection.get(from) == null || locationToIntersection.get(to) == null) {
+			throw new IllegalArgumentException("Intersection needs to be added to graph first");
+		}
+		if (roadName.equals(null) || roadType.equals(null) || length < 0) {
+			throw new IllegalArgumentException("Invalid road description");
+		}
+		Intersection pt1 = locationToIntersection.get(from);
+		Intersection pt2 = locationToIntersection.get(to);
+		pt1.addRoad(roadName, roadType, length, pt1, pt2);
+		numRoads++;
 	}
 	
 
