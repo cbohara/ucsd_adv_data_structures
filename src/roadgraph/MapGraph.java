@@ -138,29 +138,29 @@ public class MapGraph {
         return bfs(start, goal, temp);
 	}
 	
-	/** Get a mapping of how to get from one intersection to the next if 
+	/** Determine if goal intersection is in the map
 	 * target intersection found
 	 * 
 	 * @param start The starting location
 	 * @param goal The goal location
-	 * @return Mapping between the parent and child intersection
+	 * @return boolean if goal is in map return true
 	 */
-	private HashMap<Intersection, Intersection> getParentMap(Intersection start, Intersection goal) {
+	private boolean isGoalInMap(Intersection start, Intersection goal, 
+			Map<Intersection, Intersection> parentMap) {
 		// queue used to track where to search next
 		Queue<Intersection> queue = new LinkedList<Intersection>();
 
 		// set used to keep track of the Intersections that have been visited
 		Set<Intersection> visited = new HashSet<Intersection>();
 
-		// map used to keep track of the path from the start to the target Intersection
-		// map parent/previous Intersection to child/next Intersection
-		HashMap<Intersection, Intersection> parentMap = new HashMap<Intersection, Intersection>();
+		queue.add(start);
+		visited.add(start);
 		
 		while (!queue.isEmpty()) {
 			Intersection currentIntersection = queue.poll();
 			// found goal intersection so return parent map to build path to goal
 			if(currentIntersection == goal) {
-				return parentMap;
+				return true;
 			}
 			// for each intersection connected to the current intersection
 			for (Road connectedRoads : currentIntersection.getRoads()) {
@@ -169,18 +169,25 @@ public class MapGraph {
 				if (!visited.contains(otherIntersection)) {
 					// add to visited set
 					visited.add(otherIntersection);
-					// add to parentMap with current as the parent
-					parentMap.put(currentIntersection, otherIntersection);
+					// add to parentMap
+					parentMap.put(otherIntersection, currentIntersection);
 					// add to the end of the queue
 					queue.add(otherIntersection);
 
 				}
 			}
 		}
-		return null;
+		return false;
 	}
 	
-	private List<GeographicPoint> getPath(GeographicPoint goal, HashMap<Intersection, Intersection> parentMap) {
+	/** Get the path from the start to the goal intersection
+	 * 
+	 * @param goal The goal location
+	 * @param parentMap The mapping between parent and child intersections
+	 * @return List containing series of intersections from start to goal
+	 */
+	private List<GeographicPoint> getPath(GeographicPoint goal, 
+			Map<Intersection, Intersection> parentMap) {
 		LinkedList<GeographicPoint> path = new LinkedList<GeographicPoint>();
 
 		// start by adding the final goal location to the list
@@ -211,12 +218,23 @@ public class MapGraph {
 		// TODO: Implement this method in WEEK 3
 		// Hook for visualization.  See writeup.
 		//nodeSearched.accept(next.getLocation());
-		Intersection startIntersection = locationToIntersection.get(start);
-		Intersection goalIntersection = new Intersection(goal);
-		HashMap parentMap = getParentMap(startIntersection, goalIntersection);
-		if (parentMap.isEmpty()) {
+		if (start == null || goal == null) {
 			return null;
 		}
+		
+		Intersection startIntersection = locationToIntersection.get(start);
+		Intersection goalIntersection = locationToIntersection.get(goal);
+
+		// map used to keep track of the path from the start to the target Intersection
+		// map parent/previous Intersection to child/next Intersection
+		Map<Intersection, Intersection> parentMap = new HashMap<Intersection, Intersection>();
+		
+		boolean found = isGoalInMap(startIntersection, goalIntersection, parentMap);
+		
+		if (!found) {
+			return null;
+		}
+		// get path between start and goal
 		return getPath(goal, parentMap);
 	}
 	

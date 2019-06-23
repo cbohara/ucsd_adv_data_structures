@@ -1,0 +1,38 @@
+Class: MapGraph
+
+Modifications made to MapGraph (what and why):
+In order to implement bfs, I added two private helper methods.
+The parent map to keep track of the parent and child locations is initialized in bfs and updated in isGoalInMap.
+
+isGoalInMap executed the majority of the bfs algorithm.
+Using the queue, bfs would check if the current intersection is the goal.
+If the current intersection is the goal, then it would return true.
+Otherwise if the intersection has not been added to the visited set, it would be added to the visited set, the queue, and update the parent map.
+If the target intersection was never found then isGoalInMap returned false.
+
+If the target was found, then the other helper method I wrote, getPath, was executed.
+Get path used the parentMap to reconstuct the steps taken from the start to the end of the path.
+
+
+Class name: Intersection
+
+Purpose and description of class:
+I created a class to represent an intersection.  I found naming it intersection instead of MapNode made more sense for me.
+The intersection has a location (latitude, longitude) as well as a list of roads that run through the intersection.
+
+Class name: Road
+
+Purpose and description of class:
+I created a class to represent a road.  If found naming it road instead of MapEdge made more sense for me.
+The road has several descriptors that will be use in subsequent weeks.  The most important info for this week is the start and end Intersection of the Road.
+
+...
+
+Overall Design Justification (4-6 sentences):
+
+You will be submitting this justification as well as a zip file containing all of the code in the roadgraph package. This is the same set of files you submitted for the programming assignment, but make sure you re-generate the zip file if you've made any changes to the code or comments since then.
+
+Based on the advice of the support vides, I created separate classes to reprsent an Intersection and a Road.
+This helps make the implementation of MapGraph much cleaner.
+In MapGraph, I added 2 private helper methods to address bfs.
+Adding these helper methods helped abstract away some of the details and give a high level understanding of the execution.
