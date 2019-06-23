@@ -1,13 +1,13 @@
 /**
- * @author UCSD MOOC development team and YOU
+ * @author UCSD MOOC development team and Charlie O'Hara
  * 
- * A class which reprsents a graph of geographic locations
+ * A class which represents a graph of geographic locations
  * Nodes in the graph are intersections between 
  *
  */
 package roadgraph;
 
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -23,14 +23,13 @@ import util.GraphLoader;
  *
  */
 public class MapGraph {
-	//TODO: Add your member variables here in WEEK 3
-	
 	
 	/** 
 	 * Create a new empty MapGraph 
 	 */
 	public MapGraph()
 	{
+
 		// TODO: Implement in this constructor in WEEK 3
 	}
 	

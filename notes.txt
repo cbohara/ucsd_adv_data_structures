@@ -105,3 +105,17 @@ BFS(start_node, target_node):
 			add n to visited set
 			add n to parent hashmap with current as the parent
 			enqueue n onto the end of the queue
+
+##########################
+MapNode class
+Lat/long location 
+List of MapEdges
+
+MapEdge class
+Start location (lat/long)
+End location (lat/long)
+String street name
+Double street length
+
+MapGraph class
+HashMap <Location, MapNode>
