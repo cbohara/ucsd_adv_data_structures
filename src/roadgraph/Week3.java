@@ -29,14 +29,14 @@ import util.GraphLoader;
  * Nodes in the graph are intersections between 
  *
  */
-public class MapGraph {
+public class Week3 {
 	private HashMap<GeographicPoint, Intersection> locationToIntersection;
 	private int numIntersections;
 	private int numRoads;
 	/** 
-	 * Create a new empty MapGraph 
+	 * Create a new empty Week3 
 	 */
-	public MapGraph()
+	public Week3()
 	{
 		//TODO: Implement this method in WEEK 3
 		this.locationToIntersection = new HashMap<GeographicPoint, Intersection>();
@@ -265,26 +265,11 @@ public class MapGraph {
 										  GeographicPoint goal, Consumer<GeographicPoint> nodeSearched)
 	{
 		// TODO: Implement this method in WEEK 4
+
 		// Hook for visualization.  See writeup.
 		//nodeSearched.accept(next.getLocation());
-		if (start == null || goal == null) {
-			return null;
-		}
 		
-		Intersection startIntersection = locationToIntersection.get(start);
-		Intersection goalIntersection = locationToIntersection.get(goal);
-
-		// map used to keep track of the path from the start to the target Intersection
-		// map parent/previous Intersection to child/next Intersection
-		Map<Intersection, Intersection> parentMap = new HashMap<Intersection, Intersection>();
-		
-		boolean found = isGoalInMap(startIntersection, goalIntersection, parentMap);
-		
-		if (!found) {
-			return null;
-		}
-		// get path between start and goal
-		return getPath(goal, parentMap);
+		return null;
 	}
 
 	/** Find the path from start to goal using A-Star search
@@ -324,7 +309,7 @@ public class MapGraph {
 	public static void main(String[] args)
 	{
 		System.out.print("Making a new map...");
-		MapGraph firstMap = new MapGraph();
+		Week3 firstMap = new Week3();
 		System.out.print("DONE. \nLoading the map...");
 		GraphLoader.loadRoadMap("data/testdata/simpletest.map", firstMap);
 		System.out.println("DONE.");
@@ -336,6 +321,7 @@ public class MapGraph {
 		 * the Week 3 End of Week Quiz, EVEN IF you score 100% on the 
 		 * programming assignment.
 		 */
+		/*
 		MapGraph simpleTestMap = new MapGraph();
 		GraphLoader.loadRoadMap("data/testdata/simpletest.map", simpleTestMap);
 		
@@ -364,10 +350,11 @@ public class MapGraph {
 		System.out.println("Test 3 using utc: Dijkstra should be 37 and AStar should be 10");
 		testroute = testMap.dijkstra(testStart,testEnd);
 		testroute2 = testMap.aStarSearch(testStart,testEnd);
+		*/
 		
 		
 		/* Use this code in Week 3 End of Week Quiz */
-		MapGraph theMap = new MapGraph();
+		/*MapGraph theMap = new MapGraph();
 		System.out.print("DONE. \nLoading the map...");
 		GraphLoader.loadRoadMap("data/maps/utc.map", theMap);
 		System.out.println("DONE.");
@@ -378,5 +365,9 @@ public class MapGraph {
 		
 		List<GeographicPoint> route = theMap.dijkstra(start,end);
 		List<GeographicPoint> route2 = theMap.aStarSearch(start,end);
+
+		*/
+		
 	}
+	
 }
