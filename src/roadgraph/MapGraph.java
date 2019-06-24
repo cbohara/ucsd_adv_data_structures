@@ -265,11 +265,26 @@ public class MapGraph {
 										  GeographicPoint goal, Consumer<GeographicPoint> nodeSearched)
 	{
 		// TODO: Implement this method in WEEK 4
-
 		// Hook for visualization.  See writeup.
 		//nodeSearched.accept(next.getLocation());
+		if (start == null || goal == null) {
+			return null;
+		}
 		
-		return null;
+		Intersection startIntersection = locationToIntersection.get(start);
+		Intersection goalIntersection = locationToIntersection.get(goal);
+
+		// map used to keep track of the path from the start to the target Intersection
+		// map parent/previous Intersection to child/next Intersection
+		Map<Intersection, Intersection> parentMap = new HashMap<Intersection, Intersection>();
+		
+		boolean found = isGoalInMap(startIntersection, goalIntersection, parentMap);
+		
+		if (!found) {
+			return null;
+		}
+		// get path between start and goal
+		return getPath(goal, parentMap);
 	}
 
 	/** Find the path from start to goal using A-Star search
@@ -321,7 +336,6 @@ public class MapGraph {
 		 * the Week 3 End of Week Quiz, EVEN IF you score 100% on the 
 		 * programming assignment.
 		 */
-		/*
 		MapGraph simpleTestMap = new MapGraph();
 		GraphLoader.loadRoadMap("data/testdata/simpletest.map", simpleTestMap);
 		
@@ -350,11 +364,10 @@ public class MapGraph {
 		System.out.println("Test 3 using utc: Dijkstra should be 37 and AStar should be 10");
 		testroute = testMap.dijkstra(testStart,testEnd);
 		testroute2 = testMap.aStarSearch(testStart,testEnd);
-		*/
 		
 		
 		/* Use this code in Week 3 End of Week Quiz */
-		/*MapGraph theMap = new MapGraph();
+		MapGraph theMap = new MapGraph();
 		System.out.print("DONE. \nLoading the map...");
 		GraphLoader.loadRoadMap("data/maps/utc.map", theMap);
 		System.out.println("DONE.");
@@ -365,9 +378,5 @@ public class MapGraph {
 		
 		List<GeographicPoint> route = theMap.dijkstra(start,end);
 		List<GeographicPoint> route2 = theMap.aStarSearch(start,end);
-
-		*/
-		
 	}
-	
 }

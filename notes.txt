@@ -58,7 +58,7 @@ link each node to the node from which it was discovered
 
 DFS algo
 DFS(start_node, target_node):
-	initialize stack (with all nodes), visited hashset (no nodes), and parent hashmap
+	initialize stack, visited hashset, and parent hashmap
 	push start_node onto the stack and add to visited hashset
 
 	while stack is not empty (as long we have somewhere else to go):
@@ -93,7 +93,7 @@ dequeue = remove an element
 
 BFS algo
 BFS(start_node, target_node):
-	initialize queue (with all nodes), visited hashset (no nodes), and parent hashmap
+	initialize queue, visited hashset, and parent hashmap
 	push start_node onto the queue and add to visited hashset
 
 	while queue is not empty (as long we have somewhere else to go):
@@ -107,15 +107,45 @@ BFS(start_node, target_node):
 			enqueue n onto the end of the queue
 
 ##########################
-MapNode class
-Lat/long location 
-List of MapEdges
+Compare performance between BFS and DFS
+##########################
 
-MapEdge class
-Start location (lat/long)
-End location (lat/long)
-String street name
-Double street length
+How many nodes will each algorithm visit?
+O(V) = every vertice (edge) in the worse case scenario
 
-MapGraph class
-HashMap <Location, MapNode>
+How many edges will each algorithm visit?
+O(E) = every edge possible in the worse case scenario
+
+Together worse case runtime is O(V + E)
+
+In the worse case BFS is usually more efficient vs DFS
+But DFS usually finds shorter path vs BFS
+
+##########################
+Dijkstra's algorithm
+##########################
+How to keep track of where to search next?
+
+Priority queue
+List where you can add {element, priority} to one end
+Remove highest priority item from the other
+Keep in mind you can have multiple instances of the same node in the queue with different priorities
+
+Dijkstra(start_node, target_node):
+	initialize priority queue, visited hashset, parent hashmap
+	initialize distance to infinity for each node 
+
+	push start_node onto the queue
+
+	while prioity queue is not empty (as long we have somewhere else to go):
+		current = dequeue node from front of queue
+		if current != visited: 
+			add current to visited set
+			if current = target_node:
+				return parent map
+
+			for each current neighbors n that are not in visted set:
+				if the path to n is shorter than previous distance value stored:
+					update distance
+					update parent map
+					enqueue {n, distance} into priority queue
